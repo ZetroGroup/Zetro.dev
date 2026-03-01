@@ -1,223 +1,427 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Zetro.dev</title>
-<style>
-* {box-sizing: border-box}
-body {font-family: Archivo; justify-content: center; color: rgb(220, 234, 247); font-weight: 1000; margin:0; background-color: black;}
-.Images {display: none}
-img {vertical-align: middle;}
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="stylesheet" href="https://use.typekit.net/ued7sxh.css">
+  <title>Zetro — Explore</title>
+  <style>
+    * {
+      margin: 0;
+      box-sizing: border-box;
+      color: black;
+      font-family: "tt-commons-pro", sans-serif;
+      font-weight: 400;
+      font-style: normal;
 
-/* Images container */
-.Images-container {
-  max-width: 600px;
-    aspect-ratio: 16 / 9;
-  position: relative;
-  margin: auto;
-  overflow: hidden;
-  border-radius: 25px;
-  background-color: black;
-}
+      --gap: 12px;
+      --tag-padding: 8px 12px;
+      --tag-radius: 999px;
+      --bg: white;
+      --tag-bg: white;
+      --tag-color: #0b1220;
+      --speed-px: 90;
+      --duration: 20s;
+    }
 
-/* Force all images to always fill the box */
-.Images-container img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-}
+    body {
+      background-color: white;
+      color: black;
+      overflow-x: hidden;
+      min-height: 100vh;
+    }
 
-/* Next / Back */
-.back, .next {
-  cursor: pointer;
-  position: absolute;
-  background-color: black;
-  top: 50%;
-  width: auto;
-  padding: 16px;
-  margin-top: -22px;
-  color: white;
-  font-weight: bolder;
-  font-size: 18px;
-  transition: 0.6s ease;
-  border-radius: 0 3px 3px 0;
-  user-select: none;
-}
+    .toolbar {
+      width: 70%;
+      max-width: 1000px;
+      height: 35px;
+      border-radius: 20px;
+      z-index: 5;
+      color: grey;
+      text-align: center;
+      size: 20px;
+      margin: 0 auto;
+      cursor: default;
+    }
 
-.next {
-  right: 0;
-  border-radius: 15px 0 0 15px;
-}
+    .svg-container {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      overflow: visible;
+      z-index: -5;
+      margin: 0 auto;
+    }
 
-.back {
-  border-radius: 0 15px 15px 0;
-}
+    .svg-container svg {
+      position: absolute; 
+      top: 0;
+      left: 0;
+      z-index: 0;
+    }
 
-.back:hover, .next:hover {
-  background-color: black;
-}
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+      z-index: 1;
+      cursor: default;
+    }
 
-/* Number text */
-.numbertext {
-  color: white;
-  background-color: black;
-  border-bottom-right-radius: 17px;
-  border: black solid 4px;
-  font-size: 12px;
-  padding: 8px 12px;
-  position: absolute;
-  top: 0;
-}
+    header {
+      text-align: center;
+      padding: 20px 0;
+    }
 
-/* Dots */
-.dot {
-  cursor: pointer;
-  height: 15px;
-  width: 15px;
-  margin: 0 2px;
-  background-color: white;
-  border-radius: 50%;
-  display: inline-block;
-  transition: background-color 0.6s ease;
-}
+    h1 {
+      font-size: 4.5rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      margin-bottom: 10px;
+      color: black;
+      position: relative;
+      z-index: 2;
+      cursor: default;
+    }
 
-.active, .dot:hover {
-  background-color: #002fff;
-}
+    p.subtitle {
+      font-size: 1.2rem;
+      color: black;
+      opacity: 0.9;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      font-weight: 300;
+    }
 
-@media only screen and (max-width: 300px) {
-  .back, .next, .text {font-size: 11px}
-}
+    .projects {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
+      padding: 60px 0;
+      text-align: center;
+    }
 
-.centralbanner {
-  position: relative;
-  width: 100%;
-  height: 500px;
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1;
-  background-color: black;
-}
+    .project-card {
+      background-color: rgba(255, 255, 255, 0.5);
+      backdrop-filter: blur(10px); 
+      border-radius: 20px;
+      padding: 30px;
+      transition: all .4s ease;
+      position: relative;
+      overflow: hidden;
+      z-index: 2;
+    }
 
+    .project-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+      backdrop-filter: blur(20px);
+    }
 
-.centralbanner::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: radial-gradient(
-    circle,
-    rgba(0, 0, 0, 1) 25%,
-    rgb(8, 2, 44) 50%,
-    rgb(38, 0, 255) 70%,
-    rgb(2, 1, 44) 81%,
-    rgb(0, 3, 80) 83%,
-    rgb(8, 5, 64) 93%,
-    rgb(0, 0, 0) 100%
-  );
-  filter: blur(50px);
-  z-index: 1;
-  animation: shine 20s infinite ease-in-out;
-}
+    .project-card h3 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin-bottom: 15px;
+      color: black;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
 
-.logo {
-  position: relative;
-  z-index: 2;
-  color: #ffffff;
-  font-family: Arial Black;
-  font-size: 300px;
-  cursor: default;
-  user-select: none;
-  filter: drop-shadow(0px 0px 8px #ffffff);
-  animation: shine2 20s infinite ease-in-out;
-}
+    .project-card p {
+      font-size: 1rem;
+      color: grey;
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
 
-@keyframes shine {
-  0%  {transform: scaleX(184%); filter: contrast(100);}
-  50% {transform: scaleX(50%);  filter: contrast(100);}
-  100% {transform: scaleX(184%);  filter: contrast(100);}
-}
+    .project-card .btn {
+      display: inline-block;
+      padding: 10px 25px;
+      background: rgba(255, 255, 255, 0.1);
+      color: black;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: 50px;
+      box-shadow: 0 1px 0 rgba(0, 0, 0, 0.06) inset;
+      text-transform: uppercase;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      font-size: 0.9rem;
+    }
 
-@keyframes shine2 {
-  0%  {filter: drop-shadow(0px 0px 12px #ffffff);}
-  50% {filter: drop-shadow(0px 0px 0px #ffffff);}
-  100% {filter: drop-shadow(0px 0px 12px #ffffff);}
-}
+    .project-card .btn:hover {
+      background: rgba(255, 255, 255, 0.2);
+      border-color: rgba(255, 255, 255, 0.5);
+      color: black;
+      transform: translateY(-2px);
+    }
 
-.header {
-  background-color: rgba(0, 0, 0, 0.5);
-  height: 75px;
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-  padding: 13px;
-}
+    .project-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.05));
+      z-index: -1;
+      opacity: 0.05;
+    }
 
-.blue {
-  color:#0044ff;
-  font-size: 25px;
-  user-select: none;
-}
+    footer {
+      text-align: center;
+      padding: 40px 0;
+      font-size: 1rem;
+      color: #aaa;
+      position: relative;
+      z-index: 2;
+    }
 
-.in-line {
-  display: inline;
-  font-weight: bolder;
-}
+    .signature {
+      font-weight: 700;
+      color: black;
+      letter-spacing: 1px;
+      margin-top: 20px;
+    }
 
-</style>
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 2.5rem;
+      }
+
+      .projects {
+        grid-template-columns: 1fr;
+        padding: 40px 0;
+      }
+
+      .project-card {
+        padding: 25px;
+      }
+
+      .project-card h3 {
+        font-size: 1.5rem;
+      }
+    }
+
+    /* Outer box */
+    .tag-wrap {
+      width: 80%;
+      margin: 24px auto;
+      background: var(--bg);
+      padding: 10px 14px;
+      border-radius: 999px;
+      overflow: hidden;
+      max-width: 1000px;
+      box-shadow: 0 6px 20px rgba(2, 6, 23, 0.1);
+    }
+
+    .track {
+      display: flex;
+      align-items: center;
+      gap: var(--gap);
+      white-space: nowrap;
+      will-change: transform;
+      animation: scroll var(--duration) linear infinite;
+    }
+
+    .tags {
+      display: inline-flex;
+      gap: var(--gap);
+      align-items: center;
+    }
+
+    .tag {
+      display: inline-block;
+      padding: var(--tag-padding);
+      background: var(--tag-bg);
+      color: var(--tag-color);
+      border-radius: var(--tag-radius);
+      font-weight: 600;
+      font-size: 14px;
+      box-shadow: 0 1px 0 rgba(0, 0, 0, 0.06) inset;
+      user-select: none;
+    }
+
+    @keyframes scroll {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+
+    /* Small responsive tweaks */
+    @media (max-width: 480px) {
+      :root { --gap: 8px; }
+      .tag { font-size: 13px; padding: 6px 10px; }
+    }
+  </style>
 </head>
 <body>
-<div class="header"><span class="blue">(</span><span style="font-weight: bolder; font-size: 25px; user-select: none;">z</span><span class="blue">)</span></div>
-<div class="centralbanner">
-    <center><h1 class="logo">Z</h1></center>
-</div>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<!--To test scrolling-->
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-</body>
+  <center><div class="toolbar">Zetro   ⦁    PhotoLabz    ⦁    TuneLabz    ⦁    MotionLabz    ⦁    CoLabz     ⦁    2026</div></center>
+  
+  <!-- Background Splash -->
+  <div class="bg-wrap">
+    <header>
+      <h1>Zetro</h1>
+    </header>
+    
+    <div class="tag-wrap" tabindex="0" aria-label="Looping tags">
+      <div class="track" id="track">
+        <div class="tags" id="tags">
+          <span class="tag">Tools</span>
+          <span class="tag">Audio</span>
+          <span class="tag">Quick</span>
+          <span class="tag">Online</span>
+          <span class="tag">Development</span>
+          <span class="tag">Reactive</span>
+          <span class="tag">Cloud</span>
+          <span class="tag">Editing</span>
+          <span class="tag">Accessibility</span>
+          <span class="tag">Animation</span>
+          <span class="tag">Creative</span>
+          <span class="tag">Collaboration</span>
+          <span class="tag">Design</span>
+          <span class="tag">Music</span>
+          <span class="tag">Performance</span>
+          <span class="tag">Easy</span>
+          <span class="tag">Free</span>
+          <span class="tag">Web Art</span>
+          <span class="tag">Storage</span>
+        </div>
+      </div>
+    </div>
+    
+    <div class="svg-container">
+      <svg viewBox="0 0 100 100" preserveAspectRatio="xMidYMid slice">
+        <defs>
+          <radialGradient id="Gradient1" cx="50%" cy="50%" fx="0.441602%" fy="50%" r=".5">
+            <animate attributeName="fx" dur="34s" values="0%;3%;0%" repeatCount="indefinite"></animate>
+            <stop offset="0%" stop-color="rgba(255, 0, 255, 1)"></stop>
+            <stop offset="100%" stop-color="rgba(255, 0, 255, 0)"></stop>
+          </radialGradient>
+          <radialGradient id="Gradient2" cx="50%" cy="50%" fx="2.68147%" fy="50%" r=".5">
+            <animate attributeName="fx" dur="23.5s" values="0%;3%;0%" repeatCount="indefinite"></animate>
+            <stop offset="0%" stop-color="rgba(255, 255, 0, 1)"></stop>
+            <stop offset="100%" stop-color="rgba(255, 255, 0, 0)"></stop>
+          </radialGradient>
+          <radialGradient id="Gradient3" cx="50%" cy="50%" fx="0.836536%" fy="50%" r=".5">
+            <animate attributeName="fx" dur="21.5s" values="0%;3%;0%" repeatCount="indefinite"></animate>
+            <stop offset="0%" stop-color="rgba(0, 255, 255, 1)"></stop>
+            <stop offset="100%" stop-color="rgba(0, 255, 255, 0)"></stop>
+          </radialGradient>
+          <radialGradient id="Gradient4" cx="50%" cy="50%" fx="4.56417%" fy="50%" r=".5">
+            <animate attributeName="fx" dur="23s" values="0%;5%;0%" repeatCount="indefinite"></animate>
+            <stop offset="0%" stop-color="rgba(0, 255, 0, 1)"></stop>
+            <stop offset="100%" stop-color="rgba(0, 255, 0, 0)"></stop>
+          </radialGradient>
+          <radialGradient id="Gradient5" cx="50%" cy="50%" fx="2.65405%" fy="50%" r=".5">
+            <animate attributeName="fx" dur="24.5s" values="0%;5%;0%" repeatCount="indefinite"></animate>
+            <stop offset="0%" stop-color="rgba(0,0,255, 1)"></stop>
+            <stop offset="100%" stop-color="rgba(0,0,255, 0)"></stop>
+          </radialGradient>
+          <radialGradient id="Gradient6" cx="50%" cy="50%" fx="0.981338%" fy="50%" r=".5">
+            <animate attributeName="fx" dur="25.5s" values="0%;5%;0%" repeatCount="indefinite"></animate>
+            <stop offset="0%" stop-color="rgba(255,0,0, 1)"></stop>
+            <stop offset="100%" stop-color="rgba(255,0,0, 0)"></stop>
+          </radialGradient>
+        </defs>
+        <rect x="13.744%" y="1.18473%" width="100%" height="100%" fill="url(#Gradient1)" transform="rotate(334.41 50 50)">
+          <animate attributeName="x" dur="20s" values="25%;0%;25%" repeatCount="indefinite"></animate>
+          <animate attributeName="y" dur="21s" values="0%;25%;0%" repeatCount="indefinite"></animate>
+          <animateTransform attributeName="transform" type="rotate" from="0 50 50" to="360 50 50" dur="7s" repeatCount="indefinite"></animateTransform>
+        </rect>
+        <rect x="-2.17916%" y="35.4267%" width="100%" height="100%" fill="url(#Gradient2)" transform="rotate(255.072 50 50)">
+          <animate attributeName="x" dur="23s" values="-25%;0%;-25%" repeatCount="indefinite"></animate>
+          <animate attributeName="y" dur="24s" values="0%;50%;0%" repeatCount="indefinite"></animate>
+          <animateTransform attributeName="transform" type="rotate" from="0 50 50" to="360 50 50" dur="12s" repeatCount="indefinite"></animateTransform>
+        </rect>
+        <rect x="9.00483%" y="14.5733%" width="100%" height="100%" fill="url(#Gradient3)" transform="rotate(139.903 50 50)">
+          <animate attributeName="x" dur="25s" values="0%;25%;0%" repeatCount="indefinite"></animate>
+          <animate attributeName="y" dur="12s" values="0%;25%;0%" repeatCount="indefinite"></animate>
+          <animateTransform attributeName="transform" type="rotate" from="360 50 50" to="0 50 50" dur="9s" repeatCount="indefinite"></animateTransform>
+        </rect>
+      </svg>
+    </div>
+
+    <div class="container">
+      <div class="projects">
+        <div class="project-card">
+          <h3>TuneLabz</h3>
+          <p>Record, manipulate, and produce music with intuitive tools. For hobbiest, listeners and producers.</p>
+          <a href="#" class="btn">Explore</a>
+        </div>
+
+        <div class="project-card">
+          <h3>PhotoLabz</h3>
+          <p>Advanced image editing and creative filters. For photographers, digital artists and people looking to quickly edit clip art.</p>
+          <a href="#" class="btn">Explore</a>
+        </div>
+
+        <div class="project-card">
+          <h3>MotionLabz</h3>
+          <p>Design dynamic motion graphics and animations. For motion designers, VFX artists and animators.</p>
+          <a href="#" class="btn">Explore</a>
+        </div>
+      </div>
+
+      <footer>
+        <p>© 2026 Zetro — Tools by creators, for creators.</p>
+      </footer>
+    </div>
+
+    <script>
+      /* Script for duplicating and animating tags */
+      (function() {
+        const track = document.getElementById('track');
+        const tags = document.getElementById('tags');
+
+        if (!track || !tags) return;
+
+        function setupLoop() {
+
+          Array.from(track.children).forEach((c, i) => { if (i > 0) track.removeChild(c); });
+
+          const tagsHTML = tags.outerHTML;
+
+          track.insertAdjacentHTML('beforeend', tagsHTML);
+
+          requestAnimationFrame(() => {
+            const first = track.children[0];
+            const width = first.getBoundingClientRect().width;
+
+            const style = getComputedStyle(document.documentElement);
+            const speed = parseFloat(style.getPropertyValue('--speed-px')) || 90; 
+            const durationSeconds = Math.max(5, width / speed); 
+
+            document.documentElement.style.setProperty('--duration', durationSeconds + 's');
+          });
+        }
+
+        if (document.fonts && document.fonts.ready) {
+          document.fonts.ready.then(setupLoop);
+        } else {
+      
+          window.addEventListener('load', setupLoop);
+        }
+
+        let rAF;
+        window.addEventListener('resize', () => {
+          cancelAnimationFrame(rAF);
+          rAF = requestAnimationFrame(setupLoop);
+        });
+
+        window.loopingTags = {
+          setTags(arrayOfStrings) {
+            tags.innerHTML = '';
+            arrayOfStrings.forEach(s => {
+              const sp = document.createElement('span');
+              sp.className = 'tag';
+              sp.textContent = s;
+              tags.appendChild(sp);
+            });
+            setupLoop();
+          }
+        };
+      })();
+    </script>
+  </body>
 </html>
