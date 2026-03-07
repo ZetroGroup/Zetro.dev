@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="stylesheet" href="https://use.typekit.net/ued7sxh.css">
+  <title>TuneLabz — Explore</title>
+  <link rel="icon" href="/a/zetro_logo_png.png">
+  <style>
+    * {
+      margin: 0;
+      box-sizing: border-box;
+      color: rgb(255, 255, 255);
+      font-family: "tt-commons-pro", sans-serif;
+      font-weight: 400;
+      font-style: normal;
+    }
+
+    body {
+      background-color: rgb(0, 0, 0);
+      color: rgb(255, 255, 255);
+      overflow-x: hidden;
+      min-height: 100vh;
+    }
+
+    .toolbar {
+      width: 70%;
+      max-width: 1000px;
+      height: 35px;
+      border-radius: 20px;
+      z-index: 5;
+      color: grey;
+      text-align: center;
+      size: 20px;
+      margin: 0 auto;
+      cursor: default;
+    }
+
+    .svg-container {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      overflow: visible;
+      z-index: -5;
+      margin: 0 auto;
+    }
+
+    .svg-container svg {
+      position: absolute; 
+      top: 0;
+      left: 0;
+      z-index: 0;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+      z-index: 1;
+      cursor: default;
+    }
+
+    header {
+      text-align: center;
+      padding: 20px 0;
+    }
+
+    h1 {
+      font-size: 3rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      margin-bottom: 10px;
+      color: rgb(255, 255, 255);
+      position: relative;
+      z-index: 2;
+      cursor: default;
+    }
+
+    p.subtitle {
+      font-size: 1.2rem;
+      color: black;
+      opacity: 0.9;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      font-weight: 300;
+    }
+
+    .projects {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
+      padding: 60px 0;
+      text-align: center;
+    }
+
+    .project-card {
+      background: black;
+      border-radius: 20px;
+      padding: 30px;
+      transition: all .4s ease;
+      position: relative;
+      z-index: 2;
+    }
+
+    .project-card h3 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin-bottom: 15px;
+      color: white;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .project-card p {
+      font-size: 1rem;
+      color: grey;
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+
+    .project-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(45deg, transparent, rgba(10, 10, 10, 0.05));
+      z-index: -1;
+      opacity: 0.05;
+    }
+
+    footer {
+      text-align: center;
+      padding: 40px 0;
+      font-size: 1rem;
+      color: #aaa;
+      position: relative;
+      z-index: 2;
+    }
+
+    /* Responsive adjustments */
+
+@media (max-width: 768px) {
+
+      h1 {
+        font-size: 2.5rem;
+      }
+
+      .projects {
+        grid-template-columns: 1fr;
+        padding: 40px 0;
+      }
+
+      .project-card {
+        padding: 25px;
+      }
+
+      .project-card h3 {
+        font-size: 1.5rem;
+      }
+
+      .header-container h1 {
+          font-size: 5rem;
+      }
+
+}
+  </style>
+</head>
+<body>
+  <center><div class="toolbar">Zetro   ⦁    PhotoLabz    ⦁    TuneLabz    ⦁    MotionLabz    ⦁    CoLabz     ⦁    2026</div></center>
+  
+        <center><h1>TUNELABZ</h1></center>
+
+    <center><svg xmlns="http://www.w3.org/2000/svg" width="100%">
+    <linearGradient id="gradient">
+        <stop stop-color="#2107f1"/>
+        <stop offset="0" stop-color="#2937f3"/>
+    </linearGradient>
+    <filter id="filter" y="-1" height="3">
+        <feOffset dy="-45" result="o"/>
+        <feTurbulence baseFrequency=".04 .001" numOctaves="4" seed="1" result="a">
+            <animate attributeName="seed" calcMode="discrete" by="2" dur="0.5s" repeatCount="indefinite" accumulate="sum"/>
+        </feTurbulence>
+        <feTurbulence baseFrequency=".04 .001" numOctaves="4" seed="2">
+            <animate attributeName="seed" calcMode="discrete" by="2" dur="0.5s" repeatCount="indefinite" accumulate="sum" begin="0.25s"/>
+        </feTurbulence>
+       <feComposite operator="arithmetic" in="a">
+            <animate attributeName="k2" values="1;0;1" dur="0.5s" repeatCount="indefinite"/>
+            <animate attributeName="k3" values="0;1;0" dur="0.5s" repeatCount="indefinite"/>
+        </feComposite>
+        <feDisplacementMap in="o" scale="90"/>
+        <feComposite in="SourceGraphic" operator="in"/>
+    </filter>
+    <rect width="100%" height="100%" fill="black"/>
+    <rect id="half" x="-9%" y="50%" width="120%" height="75" fill="url(#gradient)" filter="url(#filter)"/>
+    <use href="#half" y="-100.1%" transform="rotate(180) scale(-1, 1)"/>
+</svg></center>
+
+    <center><h1>COMING SOON</h1></center>
+    
+    <footer>
+        <p>© 2026 TuneLabz</p>
+      </footer>
+    </div>
+  </body>
+</html>
