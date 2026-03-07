@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="stylesheet" href="https://use.typekit.net/ued7sxh.css">
+  <title>MotionLabz — Explore</title>
+  <link rel="icon" href="/a/zetro_logo_png.png">
+  <style>
+    * {
+      margin: 0;
+      box-sizing: border-box;
+      color: rgb(255, 255, 255);
+      font-family: "tt-commons-pro", sans-serif;
+      font-weight: 400;
+      font-style: normal;
+    }
+
+    body {
+      color: rgb(255, 255, 255);
+      width: 100%;
+      min-height: 100vh;
+      background: #000;
+      overflow: hidden;
+    }
+
+    .header-text {
+        font-size: 3.5rem;
+    }
+
+    .header-container {
+      display: flex; 
+      justify-content: center;
+      align-items: center;      
+      overflow: hidden;
+      height: 350px;
+    }
+
+    .toolbar {
+      width: 70%;
+      max-width: 1000px;
+      height: 35px;
+      border-radius: 20px;
+      z-index: 5;
+      color: grey;
+      text-align: center;
+      size: 20px;
+      margin: 0 auto;
+      cursor: default;
+    }
+
+    .svg-container {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      overflow: visible;
+      z-index: -5;
+      margin: 0 auto;
+    }
+
+    .svg-container svg {
+      position: absolute; 
+      top: 0;
+      left: 0;
+      z-index: 0;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+      z-index: 1;
+      cursor: default;
+    }
+
+    header {
+      text-align: center;
+      padding: 20px 0;
+    }
+
+    h1 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      margin-bottom: 10px;
+      color: rgb(255, 255, 255);
+      position: relative;
+      z-index: 2;
+      cursor: default;
+    }
+
+    p.subtitle {
+      font-size: 1.2rem;
+      color: black;
+      opacity: 0.9;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      font-weight: 300;
+    }
+
+    .projects {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
+      padding: 60px 0;
+      text-align: center;
+    }
+
+    .project-card {
+      background: black;
+      border-radius: 20px;
+      padding: 30px;
+      transition: all .4s ease;
+      position: relative;
+      z-index: 2;
+    }
+
+    .project-card h3 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin-bottom: 15px;
+      color: white;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .project-card p {
+      font-size: 1rem;
+      color: grey;
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+
+    .project-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(45deg, transparent, rgba(10, 10, 10, 0.05));
+      z-index: -1;
+      opacity: 0.05;
+    }
+
+    footer {
+      text-align: center;
+      padding: 40px 0;
+      font-size: 1rem;
+      color: #aaa;
+      position: relative;
+      z-index: 2;
+    }
+
+    /* Responsive adjustments */
+
+@media (max-width: 768px) {
+
+      h1 {
+        font-size: 2.5rem;
+      }
+
+      .projects {
+        grid-template-columns: 1fr;
+        padding: 40px 0;
+      }
+
+      .project-card {
+        padding: 25px;
+      }
+
+      .project-card h3 {
+        font-size: 1.5rem;
+      }
+
+      .header-container h1 {
+          font-size: 5rem;
+      }
+
+}
+
+    /* Header Title */
+
+.nodes {
+  position: relative;
+  min-width: 700px;
+  height: 550px;
+  margin: -150px;
+  transform-origin: right;
+  animation: colorChange 5s linear infinite;
+}
+
+.nodes:nth-child(even) {
+  transform-origin: left;
+}
+
+@keyframes colorChange {
+  0% {
+    filter: hue-rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    filter: hue-rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+
+.nodes span {
+  position: absolute;
+  top: calc(80px * var(--i));
+  left: calc(80px * var(--i));
+  bottom: calc(80px * var(--i));
+  right: calc(80px * var(--i));
+}
+
+.nodes span::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: -8px;
+  width: 15px;
+  height: 15px;
+  background: #f00;
+  border-radius: 50%;
+}
+
+.nodes span:nth-child(3n + 1)::before {
+  background: rgb(0, 255, 0);
+  box-shadow: 0 0 20px rgba(0,255,0,1),
+    0 0 40px rgba(0,255,0,1),
+    0 0 60px rgba(0,255,0,1),
+    0 0 80px rgba(0,255,0,1),
+    0 0 0 8px rgba(0,255,0,.1);
+}
+
+.nodes span:nth-child(3n + 2)::before {
+  background: rgb(255, 0, 0);
+  box-shadow: 0 0 20px rgb(255, 0, 1),
+    0 0 40px rgba(255,0, 1),
+    0 0 60px rgba(255,0, 1),
+    0 0 80px rgba(255,0, 1),
+    0 0 0 8px rgba(255, 0, 0, 0.11);
+}
+
+.nodes span:nth-child(3n + 3)::before {
+  background: rgb(0, 26, 255);
+  box-shadow: 0 0 20px rgba(0,26,255,1),
+    0 0 40px rgba(0,26,255,1),
+    0 0 60px rgba(0,26,255,1),
+    0 0 80px rgba(0,26,255,1),
+    0 0 0 8px rgba(0,26,255,.1);
+}
+
+.nodes span:nth-child(3n + 1) {
+  animation: animate 10s alternate infinite;
+}
+
+.nodes span:nth-child(3n + 2) {
+  animation: animate-reverse 3s alternate infinite;
+}
+
+.nodes span:nth-child(3n + 3) {
+  animation: animate 45s alternate infinite; 
+}
+
+@keyframes animate {
+  0% {
+    transform: rotate(180deg);
+  }
+  50% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes animate-reverse {
+  0% {
+    transform: rotate(360deg);
+  }
+  
+  50% {
+    transform: rotate(180deg);
+  }
+  
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+   
+  </style>
+</head>
+<body>
+  <center><div class="toolbar">Zetro   ⦁    PhotoLabz    ⦁    TuneLabz    ⦁    MotionLabz    ⦁    CoLabz     ⦁    2026</div></center>
+
+<div class="header-container">
+<div class="nodes">
+    
+    <span style="--i:1;"></span>
+    
+    <span style="--i:2;"></span>
+    
+    <span style="--i:3;"></span>
+    
+  </div>
+  
+  <div class="nodes">
+    
+    <span style="--i:1;"></span>
+    
+    <span style="--i:2;"></span>
+    
+    <span style="--i:3;"></span>
+    
+  </div>
+  
+    <center><h1 class="header-text">MOTIONLABZ</h1></center>
+
+  <div class="nodes">
+    
+    <span style="--i:1;"></span>
+    
+    <span style="--i:2;"></span>
+    
+    <span style="--i:3;"></span>
+    
+  </div>
+  
+  <div class="nodes">
+    
+    <span style="--i:1;"></span>
+    
+    <span style="--i:2;"></span>
+    
+    <span style="--i:3;"></span>
+    
+  </div>
+</div>
+
+    <center><img src="/a/motionlabz_demo.png" width="500px" height="400px"></center>
+
+    <center><h1>COMING SOON</h1></center>
+    
+    <footer>
+        <p>© 2026 MotionLabz</p>
+      </footer>
+    </div>
+  </body>
+</html>
