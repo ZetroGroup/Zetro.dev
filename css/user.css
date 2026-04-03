@@ -1,0 +1,113 @@
+:root{
+  --background-color: rgb(0, 0, 0);
+  --deftext-color: rgb(255, 255, 255);
+  --zetro-color: #1e90ff;
+  --div-bgcolor: #000000;
+  --div-bgcolor-hover: #1d203d;
+  --normal-padding: 15px;
+  --inside-div-padding: 20px;
+  font-family: Arial;
+  line-height: 25px;
+  text-align: center;
+}
+
+body{
+  background-color: var(--background-color);
+  color: var(--deftext-color);
+  padding: var(--normal-padding);
+  justify-content: center;
+  cursor: default;
+}
+
+.usercard {
+    background-color: rgba(15, 15, 15, 0.5);
+    backdrop-filter: blur(10px); 
+    border: rgba(128, 128, 128, 0.205) 2px solid;
+    border-radius: 20px;
+    width: 350px;
+    padding: 20px;
+    overflow: hidden;
+    justify-content: center;
+}
+
+.bio {
+    background-color: rgba(15, 15, 15, 0.5);
+    backdrop-filter: blur(10px); 
+    border: rgba(128, 128, 128, 0.205) 2px solid;
+    border-radius: 20px;
+    width: 300px;
+    padding: 20px;
+    overflow-wrap: break-word;
+    justify-content: center;
+}
+
+
+.post {
+    background-color: rgba(15, 15, 15, 0.5);
+    backdrop-filter: blur(10px); 
+    border: rgba(128, 128, 128, 0.205) 2px solid;
+    border-radius: 20px;
+    width: 350px;
+    padding: 20px;
+    overflow-wrap: break-word;
+    justify-content: center;
+}
+
+.postinfobar {
+    background-color: #00000000;
+
+}
+
+.toolbar {
+  width: 70%;
+  max-width: 1000px;
+  height: 35px;
+  border-radius: 20px;
+  z-index: 5;
+  color: grey;
+  text-align: center;
+  size: 20px;
+  margin: 0 auto;
+  cursor: default;
+}
+
+.pfp {
+  position: relative;
+  top: 0;
+  left: 0;
+  border-radius: 100px;
+  overflow: hidden;
+  z-index: 2;
+  width: 100px;
+  height: 100px;
+}
+
+footer {
+    color: grey;
+}
+
+a {
+    text-decoration: none;
+    color: rgb(36, 103, 247);
+      cursor: pointer;
+}
+
+.medium-div {
+  background-color: var(--div-bgcolor);
+  width: 45%;
+  border-width: 0px;
+  border-color: var(--zetro-color);
+  border-radius: 20px;
+  padding: 8px;
+  padding-top: var(--inside-div-padding);
+  padding-bottom: var(--inside-div-padding);
+  transition: 0.5s;
+  cursor: default;
+}
+
+.invisible-div {
+  background-color: transparent;
+  width:45%;
+  border-radius: 20px;
+  padding: 8px;
+}
