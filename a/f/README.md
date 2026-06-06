@@ -2,6 +2,6 @@ This is where website/system fonts are found.
 
 ______________________
 
-<h1>Font Index<h1>
+<h3>Font Index</h3>
 
-<a src="zetro.dev/a/f/Jersey_10/Jersey10-Regular.ttf"><p>Jersey 10 Source</p></a>
+<a src="zetro.dev/a/f/Jersey_10/Jersey10-Regular.ttf"><p size="12px" color="dodgerblue">Jersey 10 Source</p></a>
