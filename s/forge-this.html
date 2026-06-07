@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>FORGE-THIS | V2 Coming Soon</title>
+    <link rel="icon" href="/a/forgelogo.png">
+    <style>
+      :root {
+    --color1: #FF3C0D;
+    --color2: #8F1900;
+    --color3: #FF9B21;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    background: #000;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: arial;
+    cursor: default;
+}
+
+.silk-container {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    filter: blur(80px) contrast(1.2);
+    opacity: 0.6;
+}
+
+.orb {
+    position: absolute;
+    width: 60vmax;
+    height: 60vmax;
+    border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
+    background: linear-gradient(135deg, var(--color1), var(--color2));
+    mix-blend-mode: screen;
+    animation: move 20s infinite alternate-reverse;
+}
+
+
+.orb:nth-child(2) {
+    background: linear-gradient(135deg, var(--color2), var(--color3));
+    width: 70vmax;
+    height: 70vmax;
+    animation-duration: 25s;
+    animation-delay: -5s;
+    opacity: 0.8;
+}
+
+.orb:nth-child(3) {
+    background: linear-gradient(135deg, var(--color3), var(--color1));
+    width: 50vmax;
+    height: 50vmax;
+    animation-duration: 15s;
+    animation-delay: -2s;
+    left: 20%;
+}
+
+.orb:nth-child(4) {
+    background: #fff;
+    width: 30vmax;
+    height: 30vmax;
+    animation-duration: 30s;
+    opacity: 0.3;
+}
+
+@keyframes move {
+    0% {
+        transform: translate(-10%, -10%) rotate(0deg) scale(1);
+        border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
+    }
+    50% {
+        transform: translate(20%, 15%) rotate(90deg) scale(1.1);
+        border-radius: 70% 30% 50% 50% / 30% 30% 70% 70%;
+    }
+    100% {
+        transform: translate(-5%, 20%) rotate(180deg) scale(1);
+        border-radius: 30% 70% 70% 30% / 50% 40% 30% 60%;
+    }
+}
+
+.content-overlay {
+    position: relative;
+    z-index: 10;
+    text-align: center;
+    color: white;
+}
+
+h1 {
+    font-size: 5rem;
+    letter-spacing: 20px;
+    margin: 0;
+    font-weight: 200;
+    text-shadow: 0 0 20px rgba(255,255,255,0.2);
+}
+
+p {
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    opacity: 0.6;
+}
+    </style>
+</head>
+<body>
+    <div class="silk-container">
+        <div class="orb"></div>
+        <div class="orb"></div>
+        <div class="orb"></div>
+        <div class="orb"></div>
+    </div>
+    
+    <div class="content-overlay">
+        <h1>FORGE THIS 2</h1>
+        <p>We are turning UP the heat...</p>
+    </div>
+</body>
+</html>
