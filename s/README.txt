@@ -1,1 +1,1 @@
-This is where studio will be stored
+This is where studio software and info pages are stored.
