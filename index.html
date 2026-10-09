@@ -1,442 +1,194 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <link rel="stylesheet" href="https://use.typekit.net/ued7sxh.css">
-  <link rel="icon" href="/a/logo.png">
-  <title>Zetro — Explore</title>
-  <script defer src="https://yummy.zetro.dev/script.js" data-website-id="2683462b-2d90-4931-a043-115b027571a9"></script>
-  <script defer src="http://zstatic.zetro.dev/script.js" data-website-id="d8216772-84d3-44e1-ba16-46fd3127e993"></script>
-  <style>
-    * {
-      margin: 0;
-      box-sizing: border-box;
-      color: black;
-      font-family: "tt-commons-pro", sans-serif;
-      font-weight: 400;
-      font-style: normal;
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZDN | Launch and Deliver Today</title>
+    <style>
+        :root {
+            --bg-color: #000000;
+            --text-color: #ffffff;
+            --dim-color: #888888;
+            --glow-color: rgba(255, 255, 255, 0.2);
+        }
 
-      --gap: 12px;
-      --tag-padding: 8px 12px;
-      --tag-radius: 999px;
-      --bg: rgba(15,15,15,0.5);
-      --tag-bg: rgba(35,35,35,0.5);
-      --tag-color: white;
-      --speed-px: 90;
-      --duration: 20s;
-    }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    body {
-      background-color: black;
-      color: white;
-      overflow-x: hidden;
-      min-height: 100vh;
-    }
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: Arial, monospace;
+            overflow: hidden;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
 
-    .toolbar {
-      width: 70%;
-      max-width: 1000px;
-      height: 35px;
-      border-radius: 20px;
-      z-index: 5;
-      color: grey;
-      text-align: center;
-      size: 20px;
-      margin: 0 auto;
-      cursor: default;
-    }
+        .terminal-container {
+            max-width: 900px;
+            width: 100%;
+            height: auto;
+            border: 1px solid var(--text-color);
+            padding: 40px;
+            position: relative;
+            box-shadow: 0 0 20px var(--glow-color);
+            overflow-y: auto;
+            scrollbar-width: none;
+        }
 
-    .svg-container {
-      position: relative;
-      width: 100%;
-      height: 100%;
-      overflow: visible;
-      z-index: -5;
-      margin: 0 auto;
-      filter: brightness(120%);
-      filter:contrast(200%);
-      filter: blur(100px);
-    }
+        .terminal-container::-webkit-scrollbar {
+            display: none;
+        }
 
-    .svg-container svg {
-      position: absolute; 
-      top: 0;
-      left: 0;
-      z-index: 0;
-    }
+        .cursor {
+            display: inline-block;
+            width: 10px;
+            height: 1.2em;
+            background-color: var(--text-color);
+            animation: blink 1s infinite;
+            vertical-align: middle;
+            margin-left: 5px;
+        }
 
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 20px;
-      z-index: 1;
-      cursor: default;
-    }
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
 
-    header {
-      text-align: center;
-      padding: 20px 0;
-    }
+        .line {
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
 
-    h1 {
-      font-size: 4.5rem;
-      font-weight: 700;
-      letter-spacing: 2px;
-      margin-bottom: 10px;
-      color: white;
-      position: relative;
-      z-index: 2;
-      cursor: default;
-    }
+        .brand {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--text-color);
+            display: inline-block;
+            padding-bottom: 5px;
+        }
 
-    p {
-      color: white;
-    }
+        .dim {
+            color: var(--dim-color);
+        }
 
-    p.subtitle {
-      font-size: 1.2rem;
-      color: white;
-      opacity: 0.9;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      font-weight: 300;
-    }
+        .highlight {
+            color: var(--text-color);
+            font-weight: bold;
+        }
 
-    .projects {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 30px;
-      padding: 60px 0;
-      text-align: center;
-    }
+        .loading-text {
+            display: inline-block;
+            overflow: hidden;
+            white-space: nowrap;
+            border-right: 2px solid var(--text-color);
+            animation: typing 3.5s steps(40, end), blink 1s infinite;
+        }
 
-    .project-card {
-      background-color: rgba(15, 15, 15, 0.555);
-      backdrop-filter: blur(10px); 
-      border: 1px solid rgba(0, 0, 0, 0.3);
-      border-radius: 20px;
-      padding: 30px;
-      transition: all .4s ease;
-      position: relative;
-      overflow: hidden;
-      z-index: 2;
-    }
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
 
-    .project-card:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
-      backdrop-filter: blur(20px);
-    }
+        .status-bar {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 0.8rem;
+            color: var(--dim-color);
+        }
 
-    .project-card h3 {
-      font-size: 1.8rem;
-      font-weight: 700;
-      margin-bottom: 15px;
-      color: white;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-    }
+        .system-msg {
+            color: var(--dim-color);
+            margin-bottom: 5px;
+        }
 
-    .project-card p {
-      font-size: 1rem;
-      color: grey;
-      line-height: 1.6;
-      margin-bottom: 20px;
-    }
+        
+        .node-msg {
+            color: var(--dim-color);
+            margin-bottom: 5px;
+            display: inline-flex;
+        }
 
-    .project-card .btn {
-      display: inline-block;
-      padding: 10px 25px;
-      background: rgba(0, 0, 0, 0.1);
-      color: white;
-      border: 1px solid rgba(0, 0, 0, 0.3);
-      border-radius: 50px;
-      box-shadow: 0 1px 0 rgba(0, 0, 0, 0.06) inset;
-      text-transform: uppercase;
-      font-weight: 500;
-      transition: all 0.3s ease;
-      text-decoration: none;
-      font-size: 0.9rem;
-    }
+        .feature-list {
+            list-style: none;
+            margin-left: 20px;
+            border-left: 1px solid var(--dim-color);
+            padding-left: 20px;
+        }
 
-    .project-card .btn:hover {
-      background: rgba(25, 25, 25, 0.2);
-      border-color: rgba(25, 25, 25, 0.5);
-      color: white;
-      transform: translateY(-2px);
-    }
+        .feature-list li::before {
+            content: "> ";
+        }
 
-    .project-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(45deg, transparent, rgba(0, 0, 0, 0.05));
-      z-index: -1;
-      opacity: 0.05;
-    }
-
-    footer {
-      text-align: center;
-      padding: 40px 0;
-      font-size: 1rem;
-      color: white;
-      position: relative;
-      z-index: 2;
-    }
-
-    .signature {
-      font-weight: 700;
-      color: white;
-      letter-spacing: 1px;
-      margin-top: 20px;
-    }
-
-    /* Responsive adjustments */
-    @media (max-width: 768px) {
-      h1 {
-        font-size: 2.5rem;
-      }
-
-      .projects {
-        grid-template-columns: 1fr;
-        padding: 40px 0;
-      }
-
-      .project-card {
-        padding: 25px;
-      }
-
-      .project-card h3 {
-        font-size: 1.5rem;
-      }
-    }
-
-    /* Outer box */
-    .tag-wrap {
-      width: 80%;
-      margin: 24px auto;
-      background: var(--bg);
-      padding: 10px 14px;
-      border-radius: 999px;
-      border: 1px solid rgba(0, 0, 0, 0.3);
-      overflow: hidden;
-      max-width: 1000px;
-      box-shadow: 0 6px 20px rgba(2, 6, 23, 0.1);
-    }
-
-    .track {
-      display: flex;
-      align-items: center;
-      gap: var(--gap);
-      white-space: nowrap;
-      will-change: transform;
-      animation: scroll var(--duration) linear infinite;
-    }
-
-    .tags {
-      display: inline-flex;
-      gap: var(--gap);
-      align-items: center;
-    }
-
-    .tag {
-      display: inline-block;
-      border: 1px solid rgba(0, 0, 0, 0.3);
-      padding: var(--tag-padding);
-      background: var(--tag-bg);
-      color: var(--tag-color);
-      border-radius: var(--tag-radius);
-      font-weight: 600;
-      font-size: 14px;
-      box-shadow: 0 1px 0 rgba(0, 0, 0, 0.06) inset;
-      user-select: none;
-    }
-
-    @keyframes scroll {
-      from { transform: translateX(0); }
-      to { transform: translateX(-50%); }
-    }
-
-    /* Small responsive tweaks */
-    @media (max-width: 480px) {
-      :root { --gap: 8px; }
-      .tag { font-size: 13px; padding: 6px 10px; }
-    }
-  </style>
+        .terminal-container::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .terminal-container::-webkit-scrollbar-thumb {
+            background: var(--text-color);
+        }
+    </style>
 </head>
 <body>
-  <center><div class="toolbar">Zetro   ⦁    PhotoLabz    ⦁    TuneLabz    ⦁    MotionLabz    ⦁    CoLabz     ⦁    2026</div></center>
-  
-  <!-- Background Splash -->
-  <div class="bg-wrap">
-    <header>
-      <h1>[ Zetro.dev ]</h1>
-    </header>
-    
-    <div class="tag-wrap" tabindex="0" aria-label="Looping tags">
-      <div class="track" id="track">
-        <div class="tags" id="tags">
-          <span class="tag">Tools</span>
-          <span class="tag">Audio</span>
-          <span class="tag">Quick</span>
-          <span class="tag">Online</span>
-          <span class="tag">Development</span>
-          <span class="tag">Reactive</span>
-          <span class="tag">Cloud</span>
-          <span class="tag">Editing</span>
-          <span class="tag">Accessibility</span>
-          <span class="tag">Animation</span>
-          <span class="tag">Creative</span>
-          <span class="tag">Collaboration</span>
-          <span class="tag">Design</span>
-          <span class="tag">Music</span>
-          <span class="tag">Performance</span>
-          <span class="tag">Easy</span>
-          <span class="tag">Free</span>
-          <span class="tag">Web Art</span>
+
+    <div class="terminal-container">
+        <div class="status-bar">
+          <span class="node-msg">STATUS: <p style="color: green;"> ONLINE</p> // VIEWING VIA NODE: GLOBAL_JP01</span>
+          </div>
+        
+        <div class="line">
+            <span class="brand">Zetro.dev</span>
         </div>
-      </div>
+        <div class="line">
+            <span class="system-msg" style="color:green;">Proxy: True, connection is via secure cloudflared tunnel.</span>
+        </div>
+        <div class="line">
+            <span class="system-msg">Welcome to the Zetro Content Delivery Network.</span>
+        </div>
+        <br>
+
+        <div class="line">
+            <span class="highlight">What is Zetro.dev?</span>
+            <br>
+            <br>
+            ZDN is a high-performance CDN and hosting network designed by HARMNY GROUP. Unlike standard cdn hosting, we don't host your full application, instead we deliver assets you may need for you. We do not collect any personal info when you use our network.
+        </div>
+
+        <br>
+
+        <div class="line">
+            <span class="highlight">Our Infrastructure:</span>
+            <ul class="feature-list">
+                <li>Global Node distribution</li>
+                <li>Secure location detection for low latency results</li>
+                <li>Delivers your important application scripts fast.</li>
+                <li>Works via WSS, protecting delivery from most network firewalls.</li>
+            </ul>
+        </div>
+
+        <br>
+
+        <div class="line">
+            <span class="system-msg">Quick Info:</span>
+        </div>
+        <div class="line">
+            <span class="dim">Architecture: Distributed Mesh</span><br>
+            <span class="dim">Protocol: WSS, TCP</span><br>
+            <span class="dim">Optimization: Brotli, Gzip, Image Compression</span>
+        </div>
+
+        <br>
+        <div class="line">
+            <span class="highlight">Ready to deploy using ZDN assets?</span><br>
+            <span class="dim">_</span><span class="cursor"></span>
+        </div>
     </div>
-    
-    <div class="svg-container">
-      <svg viewBox="0 0 100 100" preserveAspectRatio="xMidYMid slice">
-        <defs>
-          <radialGradient id="Gradient1" cx="50%" cy="50%" fx="0.441602%" fy="50%" r=".5">
-            <animate attributeName="fx" dur="34s" values="0%;3%;0%" repeatCount="indefinite"></animate>
-            <stop offset="0%" stop-color="rgba(255, 0, 255, 1)"></stop>
-            <stop offset="100%" stop-color="rgba(255, 0, 255, 0)"></stop>
-          </radialGradient>
-          <radialGradient id="Gradient2" cx="50%" cy="50%" fx="2.68147%" fy="50%" r=".5">
-            <animate attributeName="fx" dur="23.5s" values="0%;3%;0%" repeatCount="indefinite"></animate>
-            <stop offset="0%" stop-color="rgba(255, 255, 0, 1)"></stop>
-            <stop offset="100%" stop-color="rgba(255, 255, 0, 0)"></stop>
-          </radialGradient>
-          <radialGradient id="Gradient3" cx="50%" cy="50%" fx="0.836536%" fy="50%" r=".5">
-            <animate attributeName="fx" dur="21.5s" values="0%;3%;0%" repeatCount="indefinite"></animate>
-            <stop offset="0%" stop-color="rgba(0, 255, 255, 1)"></stop>
-            <stop offset="100%" stop-color="rgba(0, 255, 255, 0)"></stop>
-          </radialGradient>
-          <radialGradient id="Gradient4" cx="50%" cy="50%" fx="4.56417%" fy="50%" r=".5">
-            <animate attributeName="fx" dur="23s" values="0%;5%;0%" repeatCount="indefinite"></animate>
-            <stop offset="0%" stop-color="rgba(0, 255, 0, 1)"></stop>
-            <stop offset="100%" stop-color="rgba(0, 255, 0, 0)"></stop>
-          </radialGradient>
-          <radialGradient id="Gradient5" cx="50%" cy="50%" fx="2.65405%" fy="50%" r=".5">
-            <animate attributeName="fx" dur="24.5s" values="0%;5%;0%" repeatCount="indefinite"></animate>
-            <stop offset="0%" stop-color="rgba(0,0,255, 1)"></stop>
-            <stop offset="100%" stop-color="rgba(0,0,255, 0)"></stop>
-          </radialGradient>
-          <radialGradient id="Gradient6" cx="50%" cy="50%" fx="0.981338%" fy="50%" r=".5">
-            <animate attributeName="fx" dur="25.5s" values="0%;5%;0%" repeatCount="indefinite"></animate>
-            <stop offset="0%" stop-color="rgba(255,0,0, 1)"></stop>
-            <stop offset="100%" stop-color="rgba(255,0,0, 0)"></stop>
-          </radialGradient>
-        </defs>
-        <rect x="13.744%" y="1.18473%" width="100%" height="100%" fill="url(#Gradient1)" transform="rotate(334.41 50 50)">
-          <animate attributeName="x" dur="20s" values="25%;0%;25%" repeatCount="indefinite"></animate>
-          <animate attributeName="y" dur="21s" values="0%;25%;0%" repeatCount="indefinite"></animate>
-          <animateTransform attributeName="transform" type="rotate" from="0 50 50" to="360 50 50" dur="7s" repeatCount="indefinite"></animateTransform>
-        </rect>
-        <rect x="-2.17916%" y="35.4267%" width="100%" height="100%" fill="url(#Gradient2)" transform="rotate(255.072 50 50)">
-          <animate attributeName="x" dur="23s" values="-25%;0%;-25%" repeatCount="indefinite"></animate>
-          <animate attributeName="y" dur="24s" values="0%;50%;0%" repeatCount="indefinite"></animate>
-          <animateTransform attributeName="transform" type="rotate" from="0 50 50" to="360 50 50" dur="12s" repeatCount="indefinite"></animateTransform>
-        </rect>
-        <rect x="9.00483%" y="14.5733%" width="100%" height="100%" fill="url(#Gradient3)" transform="rotate(139.903 50 50)">
-          <animate attributeName="x" dur="25s" values="0%;25%;0%" repeatCount="indefinite"></animate>
-          <animate attributeName="y" dur="12s" values="0%;25%;0%" repeatCount="indefinite"></animate>
-          <animateTransform attributeName="transform" type="rotate" from="360 50 50" to="0 50 50" dur="9s" repeatCount="indefinite"></animateTransform>
-        </rect>
-      </svg>
-    </div>
-
-    <div class="container">
-      <div class="projects">
-        <div class="project-card">
-          <img src="/a/tunelabz_logo.png" height="150px" width="150px">
-          <h3>TuneLabz</h3>
-          <p>Record, manipulate, and produce music with intuitive tools. For hobbiest, listeners and producers.</p>
-          <a href="https://zetro.dev/e/tunelabz" class="btn">Explore</a>
-        </div>
-
-        <div class="project-card">
-          <img src="/a/photolabz_logo.png" height="150px" width="150px">
-          <h3>PhotoLabz</h3>
-          <p>Advanced image editing and creative filters. For photographers, digital artists and people looking to quickly edit clip art.</p>
-          <a href="https://zetro.dev/e/photolabz" class="btn">Explore</a>
-        </div>
-
-        <div class="project-card">
-          <img src="/a/motionlabz_logo.png" height="150px" width="150px">
-          <h3>MotionLabz</h3>
-          <p>Design dynamic motion graphics and animations. For motion designers, VFX artists and animators.</p>
-          <a href="https://zetro.dev/e/motionlabz" class="btn">Explore</a>
-        </div>
-      </div>
-
-      <footer>
-        <p>© 2026 Zetro — Tools by creators, for creators.</p>
-      </footer>
-    </div>
-
-    <script>
-      /* Script for duplicating and animating tags */
-      (function() {
-        const track = document.getElementById('track');
-        const tags = document.getElementById('tags');
-
-        if (!track || !tags) return;
-
-        function setupLoop() {
-
-          Array.from(track.children).forEach((c, i) => { if (i > 0) track.removeChild(c); });
-
-          const tagsHTML = tags.outerHTML;
-
-          track.insertAdjacentHTML('beforeend', tagsHTML);
-
-          requestAnimationFrame(() => {
-            const first = track.children[0];
-            const width = first.getBoundingClientRect().width;
-
-            const style = getComputedStyle(document.documentElement);
-            const speed = parseFloat(style.getPropertyValue('--speed-px')) || 90; 
-            const durationSeconds = Math.max(5, width / speed); 
-
-            document.documentElement.style.setProperty('--duration', durationSeconds + 's');
-          });
-        }
-
-        if (document.fonts && document.fonts.ready) {
-          document.fonts.ready.then(setupLoop);
-        } else {
-      
-          window.addEventListener('load', setupLoop);
-        }
-
-        let rAF;
-        window.addEventListener('resize', () => {
-          cancelAnimationFrame(rAF);
-          rAF = requestAnimationFrame(setupLoop);
-        });
-
-        window.loopingTags = {
-          setTags(arrayOfStrings) {
-            tags.innerHTML = '';
-            arrayOfStrings.forEach(s => {
-              const sp = document.createElement('span');
-              sp.className = 'tag';
-              sp.textContent = s;
-              tags.appendChild(sp);
-            });
-            setupLoop();
-          }
-        };
-      })();
-    </script>
-  </body>
+</body>
 </html>
